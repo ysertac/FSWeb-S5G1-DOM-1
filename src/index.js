@@ -48,73 +48,60 @@ const siteContent = {
 console.log("Proje açıldı!");
 
 /* Kodlar Buradan aşağıya */
+//Değişken atama bölümü--------
 
-let logoImg = document.getElementById("logo-img");
-let ctaImg = document.getElementById("cta-img");
-let middleImg = document.getElementById("middle-img");
-let footer = document.getElementsByTagName("footer")[0];
-let header = document.getElementsByTagName("header")[0];
-let nav = header.getElementsByTagName("nav")[0];
-let navAnchor = nav.getElementsByTagName("a");
-let ctaText = document.getElementsByClassName("cta-text")[0];
-let contentDiv = document.getElementsByClassName("text-content");
-let contact = document.getElementsByClassName("contact")[0];
+let navLinks = document.querySelectorAll("nav a");
+let images = document.querySelectorAll("img");
+let cta = document.querySelector("section.cta .cta-text");
+const propertyNamesMain = Object.keys(siteContent["ana-içerik"]);
+const propertyNamesContact = Object.keys(siteContent["iletisim"]);
+let topContentText = document.querySelectorAll(".top-content .text-content");
+let botContentText = document.querySelectorAll(".bottom-content .text-content");
+let contact = document.querySelector("section.contact");
+let footer = document.querySelector("footer");
 
-logoImg.setAttribute("src", "http://localhost:9000/img/logo.png");
-ctaImg.setAttribute("src", "http://localhost:9000/img/cta.png");
-middleImg.setAttribute("src", "http://localhost:9000/img/accent.png");
-for (let i = 0; i < navAnchor.length; i++) {
-  navAnchor[i].classList = "italic";
-}
+//İçerik ekleme bölümü--------
 
-navAnchor[0].textContent = "Servisler";
-navAnchor[1].textContent = "Ürünler";
-navAnchor[2].textContent = "Vizyon";
-navAnchor[3].textContent = "Özellikler";
-navAnchor[4].textContent = "Hakkımızda";
-navAnchor[5].textContent = "İletişim";
+navLinks.forEach((value, key) => {
+  value.textContent = siteContent.nav[`nav-item-${key + 1}`];
+});
 
-ctaText.getElementsByTagName("h1")[0].textContent = "Bu DOM Mükemmel";
-ctaText.getElementsByTagName("button")[0].textContent = "Başlayın";
-contentDiv[0].getElementsByTagName("h4")[0].textContent = "Özellikler";
-contentDiv[0].getElementsByTagName(
-  "p"
-)[0].textContent = `Özellikler içeriği elementum magna eros, ac posuere elvit tempus et. Suspendisse vel tempus odio,
-in interdutm nisi. Suspendisse eu ornare nisl. Nullam convallis augue justo, at imperdiet metus
-scelerisque quis.`;
-contentDiv[1].getElementsByTagName("h4")[0].textContent = "Hakkında";
-contentDiv[1].getElementsByTagName(
-  "p"
-)[0].textContent = `Hakkında içeriği elementum magna eros, ac posuere elvit tempus et. Suspendisse vel tempus odio, in
-interdutm nisi. Suspendisse eu ornare nisl. Nullam convallis augue justo, at imperdiet metus
-scelerisque quis.`;
-contentDiv[2].getElementsByTagName("h4")[0].textContent = "Servisler";
-contentDiv[2].getElementsByTagName(
-  "p"
-)[0].textContent = `Servisler içeriği elementum magna eros, ac posuere elvit tempus et. Suspendisse vel tempus odio,
-in interdutm nisi. Suspendisse eu ornare nisl. Nullam convallis augue justo, at imperdiet metus
-scelerisque quis.`;
-contentDiv[3].getElementsByTagName("h4")[0].textContent = "Ürünler";
-contentDiv[3].getElementsByTagName(
-  "p"
-)[0].textContent = `Ürünler içeriği elementum magna eros, ac posuere elvit tempus et. Suspendisse vel tempus odio, in
-interdutm nisi. Suspendisse eu ornare nisl. Nullam convallis augue justo, at imperdiet metus
-scelerisque quis.`;
-contentDiv[4].getElementsByTagName("h4")[0].textContent = "Vizyon";
-contentDiv[4].getElementsByTagName(
-  "p"
-)[0].textContent = `Vizyon içeriği elementum magna eros, ac posuere elvit tempus et. Suspendisse vel tempus odio, in
-interdutm nisi. Suspendisse eu ornare nisl. Nullam convallis augue justo, at imperdiet metus
-scelerisque quis.`;
+images[0].setAttribute("src", siteContent.images["logo-img"]);
+images[1].setAttribute("src", siteContent.images["cta-img"]);
+images[2].setAttribute("src", siteContent.images["accent-img"]);
 
-contact.getElementsByTagName("h4")[0].textContent = "İletişim";
-contact.getElementsByTagName("p")[0].textContent =
-  "100 numara Bilmem ne sokak Ankara'da bir semt, Türkiye";
-contact.getElementsByTagName("p")[1].textContent = "+90 (123) 456-7899";
-contact.getElementsByTagName("p")[2].textContent =
-  "satis@birsirketsitesi.com.tr";
+cta.querySelector("h1").textContent = siteContent.cta.h1;
+cta.querySelector("button").textContent = siteContent.cta.button;
 
-footer.getElementsByTagName("a")[0].textContent =
-  "Copyright Bir Şirket Sitesi 2022";
+topContentText.forEach((value, key) => {
+  value.querySelector("h4").textContent =
+    siteContent["ana-içerik"][`${propertyNamesMain[key * 2]}`];
+  value.querySelector("p").textContent =
+    siteContent["ana-içerik"][`${propertyNamesMain[key * 2 + 1]}`];
+});
 
-footer.getElementsByTagName("a")[0].classList = "bold";
+botContentText.forEach((value, key) => {
+  value.querySelector("h4").textContent =
+    siteContent["ana-içerik"][
+      `${propertyNamesMain[(key + topContentText.length) * 2]}`
+    ];
+  value.querySelector("p").textContent =
+    siteContent["ana-içerik"][
+      `${propertyNamesMain[(key + topContentText.length) * 2 + 1]}`
+    ];
+});
+
+contact.querySelector("h4").textContent = siteContent.iletisim["iletişim-h4"];
+contact.querySelectorAll("p").forEach((value, key) => {
+  value.textContent = siteContent.iletisim[`${propertyNamesContact[key + 1]}`];
+});
+
+footer.querySelector("a").textContent = siteContent.footer.copyright;
+
+//Stil bölümü--------
+
+navLinks.forEach((value) => {
+  value.classList = "italic";
+});
+
+footer.querySelector("a").classList = "bold";
